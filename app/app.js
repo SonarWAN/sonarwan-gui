@@ -2,6 +2,9 @@
 // Import React and ReactDOM
 import React from 'react';
 import ReactDOM from 'react-dom';
+
+const { ipcRenderer } = require('electron');
+
 // Search component created as a class
 class Search extends React.Component {
 
