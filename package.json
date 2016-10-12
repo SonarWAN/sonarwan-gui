@@ -9,6 +9,7 @@
   },
   "repository": "https://github.com/sonarwan/sonarwan-gui",
   "devDependencies": {
+    "devtron": "^1.4.0",
     "electron": "^1.2.0"
   },
   "dependencies": {
