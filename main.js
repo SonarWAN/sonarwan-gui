@@ -53,7 +53,8 @@ const ipc = require('electron').ipcMain
 const dialog = require('electron').dialog
 
 ipc.on('open-file-dialog', function (event) {
-  dialog.showOpenDialog({
+  const window = BrowserWindow.fromWebContents(event.sender)
+  dialog.showOpenDialog(window, {
     properties: ['openFile', 'openDirectory']
   }, function (files) {
     if (files) event.sender.send('selected-directory', files)
