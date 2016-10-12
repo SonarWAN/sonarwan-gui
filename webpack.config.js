@@ -23,6 +23,11 @@ module.exports = {
             ['transform-object-rest-spread', { 'useBuiltIns': true }]
           ]
         }
+      },
+      {
+        test: /\.less$/,
+        exclude: /node_modules/,
+        loader: 'style!css!less'
       }
     ]
   }

@@ -1,0 +1,28 @@
+@import "../node_modules/normalize.css/normalize.css";
+
+.app {
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+}
+
+.app-body {
+  display: flex;
+  flex: 1;
+}
+
+.app-content {
+  flex: 0 1 75%;
+	padding: 20px;
+}
+
+.app-sidebar {
+  /* 12em is the width of the columns */
+  flex: 0 1 25%;
+  /* put the nav on the left */
+  order: -1;
+}
+
+code {
+	font-family: Consolas, "Liberation Mono", Menlo, Courier, monospace;
+}

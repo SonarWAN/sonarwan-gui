@@ -1,27 +1,29 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import { connect } from 'react-redux'
-
-import { openFile } from '../actions'
+import { Button } from 'react-desktop/macOs';
 
 class Welcome extends React.Component {
-  handleOpen() {
-    this.props.dispatch(openFile())
-  }
-
   render() {
     return (
-      <form>
-        <div>Hello World!</div>
-        <button type="button" onClick={this.handleOpen.bind(this)}>Open file</button>
-        {this.props.path && 'You selected: ' + this.props.path}
-      </form>
+      <div className="app-content">
+        <form>
+          <h1>Getting Started</h1>
+          <p>Select .pcap files to analize in SonarWAN</p>
+          <Button color="blue" onClick={this.props.onOpenFile}>Open file</Button>
+          {this.renderSelectedFile()}
+        </form>
+      </div>
     );
+  }
+
+  renderSelectedFile() {
+    if (!this.props.path)
+      return null
+
+    return (
+      <p>You selected: <code>{this.props.path.join(', ')}</code></p>
+    )
   }
 }
 
-const mapStateToProps = (state) => {
-  return { path: state.path }
-}
-
-export default connect(mapStateToProps)(Welcome)
+export default Welcome

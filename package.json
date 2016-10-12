@@ -17,8 +17,12 @@
     "babel-loader": "^6.2.5",
     "babel-preset-es2015": "^6.16.0",
     "babel-preset-react": "^6.16.0",
-    "photon": "^2.0.0",
+    "css-loader": "^0.25.0",
+    "less": "^2.7.1",
+    "less-loader": "^2.2.3",
+    "normalize.css": "^5.0.0",
     "react": "^15.3.2",
+    "react-desktop": "^0.2.14",
     "react-dom": "^15.3.2",
     "react-redux": "^4.4.5",
     "react-router": "^2.8.1",
@@ -26,6 +30,7 @@
     "redux-actions": "^0.12.0",
     "redux-logger": "^2.7.0",
     "redux-thunk": "^2.1.0",
+    "style-loader": "^0.13.1",
     "webpack": "^1.13.2"
   }
 }
