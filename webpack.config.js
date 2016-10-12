@@ -2,7 +2,8 @@ const path = require('path')
 const webpack = require('webpack')
 const webpackTargetElectronRenderer = require('webpack-target-electron-renderer')
 
-var config = {
+module.exports = {
+  target: 'electron-renderer',
   entry: {
     index: './app/app',
   },
@@ -22,7 +23,3 @@ var config = {
     ]
   }
 }
-
-config.target = webpackTargetElectronRenderer(config);
-
-module.exports = config;
