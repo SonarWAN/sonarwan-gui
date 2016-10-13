@@ -6,8 +6,12 @@ export const openFile = () => {
   return (dispatch) => {
     dispatch({ type: 'OPEN_FILE' })
 
-    ipc.once('selected-directory', (event, path) => {
+    ipc.once('selected-file', (event, path) => {
       dispatch(fileOpened(path))
+    })
+
+    ipc.once('loaded-data', (event, data) => {
+      dispatch(dataLoaded(data))
     })
 
     ipc.send('open-file-dialog')
@@ -15,3 +19,5 @@ export const openFile = () => {
 }
 
 export const fileOpened = createAction('FILE_OPENED')
+
+export const dataLoaded = createAction('DATA_LOADED')

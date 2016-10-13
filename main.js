@@ -1,4 +1,6 @@
+const fs = require('fs')
 const electron = require('electron')
+
 // Module to control application life.
 const app = electron.app
 // Module to create native browser window.
@@ -53,10 +55,18 @@ const ipc = require('electron').ipcMain
 const dialog = require('electron').dialog
 
 ipc.on('open-file-dialog', function (event) {
+
   const window = BrowserWindow.fromWebContents(event.sender)
   dialog.showOpenDialog(window, {
-    properties: ['openFile', 'openDirectory']
+    properties: ['openFile']
   }, function (files) {
-    if (files) event.sender.send('selected-directory', files)
+    if (!files) return
+
+    event.sender.send('selected-files', files)
+
+    // TODO: remove hardcoded sample data
+    fs.readFile('./data/sample.json', function(err, data) {
+      event.sender.send('loaded-data', JSON.parse(data))
+    })
   })
 })

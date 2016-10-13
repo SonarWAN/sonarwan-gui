@@ -8,7 +8,8 @@ module.exports = {
     index: './app/app',
   },
   output: {
-    filename: 'js/app.js'
+    path: path.join(__dirname, 'js'),
+    filename: 'app.js'
   },
   module: {
     loaders: [
@@ -28,6 +29,15 @@ module.exports = {
         test: /\.less$/,
         exclude: /node_modules/,
         loader: 'style!css!less'
+      },
+      {
+        test: /\.woff(2)?(\?v=[0-9]\.[0-9]\.[0-9])?$/,
+        loader: 'url',
+        query: { limit: 10000, mimetype: 'application/font-woff' }
+      },
+      {
+        test: /\.(ttf|eot|svg)(\?v=[0-9]\.[0-9]\.[0-9])?$/,
+        loader: 'file'
       }
     ]
   }

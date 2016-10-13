@@ -1,0 +1,9 @@
+{
+  "devices": [
+    {"os_build": "LMY48B", "os_version": "5.1.1", "os_brand": "Google", "brand": "LG", "dalvik_version": "2.1.0", "os_family": "Android", "model": "Nexus 5"},
+    {"os_version": "10_11_5", "os_family": "Mac OS X", "family": "Macintosh", "services": [{"name": "Chrome", "chrome_version": "51.0.2704.103", "chrome_webkit": "537.36"}]},
+    {"os_build": "13E238", "os_version": "9.3.1", "os_brand": "Apple", "brand": "Apple", "version": "8,4", "family": "iPhone", "cfnetwork_version": "758.3.15", "os_family": "iOS", "model": "iPhone", "darwin_version": "15.4.0", "services": [{"name": "securityd"}, {"name": "dataaccessd", "version": "1.0"}]},
+    {"brand": "Generic"},
+    {"os_build": "15E65", "os_version": "10.11.4", "darwin_version": "15.", "os_family": "Mac OS X", "cfnetwork_version": "760.", "services": [{"name": "CalendarAgent", "version": "361.2"}]}
+  ]
+}
