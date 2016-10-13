@@ -13,6 +13,11 @@ import { connect } from 'react-redux'
 
 import * as deviceUtils from '../device-utils'
 
+
+function SidebarIcon({ name }) {
+  return <span className="sidebar-icon"><i className={'fa fa-' + name} />&nbsp;</span>
+}
+
 class Sidebar extends Component {
   constructor(props) {
     super(props);
@@ -46,6 +51,7 @@ class Sidebar extends Component {
       <ListViewRow key={i}
         onClick={() => this.setState({ selected: i })}
         background={this.state.selected === i ? '#d8dadc' : null}>
+        <SidebarIcon name={deviceUtils.icon(device)} />
         <Text color="#414141" size="13">{deviceUtils.prettyName(device)}</Text>
       </ListViewRow>
     );

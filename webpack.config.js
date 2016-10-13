@@ -9,7 +9,8 @@ module.exports = {
   },
   output: {
     path: path.join(__dirname, 'js'),
-    filename: 'app.js'
+    filename: 'app.js',
+    publicPath: 'js/'
   },
   module: {
     loaders: [
@@ -27,7 +28,6 @@ module.exports = {
       },
       {
         test: /\.less$/,
-        exclude: /node_modules/,
         loader: 'style!css!less'
       },
       {
