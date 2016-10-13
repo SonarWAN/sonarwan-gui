@@ -21,6 +21,7 @@ module.exports = {
         query: {
           presets: ['react', 'es2015'],
           plugins: [
+            'transform-class-properties',
             'transform-es2015-destructuring',
             ['transform-object-rest-spread', { 'useBuiltIns': true }]
           ]

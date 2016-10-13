@@ -2,8 +2,8 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import { connect } from 'react-redux'
 
-import Sidebar from './Sidebar'
-import Welcome from './Welcome'
+import Sidebar from '../components/Sidebar'
+import Welcome from '../components/Welcome'
 import { openFile } from '../actions'
 
 class Start extends React.Component {

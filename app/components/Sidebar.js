@@ -1,4 +1,5 @@
-import React, { Component } from 'react';
+import React, { Component } from 'react'
+import { hashHistory } from 'react-router'
 import {
   ListView,
   ListViewHeader,
@@ -19,6 +20,10 @@ function SidebarIcon({ name }) {
 }
 
 class Sidebar extends Component {
+  static contextTypes = {
+    router: React.PropTypes.object
+  }
+
   constructor(props) {
     super(props);
     this.state = { selected: null };
@@ -49,12 +54,17 @@ class Sidebar extends Component {
   renderDeviceItem(device, i) {
     return (
       <ListViewRow key={i}
-        onClick={() => this.setState({ selected: i })}
+        onClick={() => this.handleDeviceClick(i)}
         background={this.state.selected === i ? '#d8dadc' : null}>
         <SidebarIcon name={deviceUtils.icon(device)} />
         <Text color="#414141" size="13">{deviceUtils.prettyName(device)}</Text>
       </ListViewRow>
     );
+  }
+
+  handleDeviceClick(deviceId) {
+    this.setState({ selected: deviceId }) // TODO: ugly
+    this.context.router.push(`/devices/${deviceId}`)
   }
 }
 
