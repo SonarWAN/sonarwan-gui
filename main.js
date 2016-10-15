@@ -1,6 +1,8 @@
 const fs = require('fs')
 const electron = require('electron')
 
+const __DEBUG__ = true
+
 // Module to control application life.
 const app = electron.app
 // Module to create native browser window.
@@ -12,10 +14,13 @@ let mainWindow
 
 function createWindow () {
   // Create the browser window.
-  mainWindow = new BrowserWindow({width: 800, height: 600})
+  mainWindow = new BrowserWindow({width: 800, height: 600, show: false})
 
   // and load the index.html of the app.
   mainWindow.loadURL(`file://${__dirname}/index.html`)
+
+  mainWindow.maximize()
+  mainWindow.show()
 
   // Emitted when the window is closed.
   mainWindow.on('closed', function () {
@@ -70,3 +75,12 @@ ipc.on('open-file-dialog', function (event) {
     })
   })
 })
+
+// autoload some data if debug is on
+if (__DEBUG__) {
+  setTimeout(function() {
+    fs.readFile('./data/sample.json', function(err, data) {
+      mainWindow.send('loaded-data', JSON.parse(data))
+    })
+  }, 1000)
+}

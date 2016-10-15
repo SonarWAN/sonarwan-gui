@@ -7,6 +7,8 @@ import store from './store'
 import Start from './routes/Start'
 import DeviceDetails from './routes/DeviceDetails'
 
+require('./listeners')
+
 require('./style.less')
 
 ReactDOM.render(

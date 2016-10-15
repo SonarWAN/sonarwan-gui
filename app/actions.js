@@ -10,10 +10,6 @@ export const openFile = () => {
       dispatch(fileOpened(path))
     })
 
-    ipc.once('loaded-data', (event, data) => {
-      dispatch(dataLoaded(data))
-    })
-
     ipc.send('open-file-dialog')
   }
 }
