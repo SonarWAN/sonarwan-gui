@@ -13,6 +13,10 @@ import Sidebar from '../components/Sidebar'
 import * as deviceUtils from '../device-utils'
 
 class DeviceChart extends React.Component {
+  static propTypes = {
+    device: React.PropTypes.object.isRequired
+  }
+
   getData() {
 		return [
 			{name: 'Page A', uv: 4000, pv: 2400, amt: 2400},
@@ -38,38 +42,34 @@ class DeviceChart extends React.Component {
   }
 }
 
-class DeviceActivityTable extends React.Component {
-	getData() {
-		return [
-			{ 'Foo': 'Bar', 'Baz': 'Qux' },
-			{ 'Foo': 'Bar', 'Baz': 'Qux' },
-			{ 'Foo': 'Bar', 'Baz': 'Qux' },
-			{ 'Foo': 'Bar', 'Baz': 'Qux' },
-		]
-	}
+class DeviceCharacteristics extends React.Component {
+  static propTypes = {
+    device: React.PropTypes.object.isRequired
+  }
 
   render() {
-    const data = this.getData()
     return (
-      <table className="table table-striped">
-        <thead>
-          <tr>
-            <th>Foo</th>
-            <th>Bar</th>
-          </tr>
-        </thead>
-        <tbody>
-          {data.map(this.renderRow.bind(this))}
-        </tbody>
-      </table>
+      <div>
+        <h3>Characteristics</h3>
+        <table className="table table-striped">
+          <tbody>
+            {Object.keys(this.props.device).map((key) =>
+              this.renderRow(key, this.props.device[key])
+            )}
+          </tbody>
+        </table>
+      </div>
 		)
   }
 
-  renderRow(row) {
+  renderRow(key, value) {
+    if (key === 'services')
+      return null
+
     return (
-      <tr>
-        <td>{row.Foo}</td>
-        <td>{row.Baz}</td>
+      <tr key={key}>
+        <td>{key}</td>
+        <td>{value}</td>
       </tr>
     )
   }
@@ -78,6 +78,10 @@ class DeviceActivityTable extends React.Component {
 class DeviceDetails extends React.Component {
   static contextTypes = {
     router: React.PropTypes.object
+  }
+
+  static propTypes = {
+    device: React.PropTypes.object
   }
 
   componentDidMount() {
@@ -95,8 +99,8 @@ class DeviceDetails extends React.Component {
           <Sidebar />
           <div className="app-content">
             <h1>{deviceUtils.prettyName(this.props.device)}</h1>
-            <DeviceChart />
-            <DeviceActivityTable />
+            <DeviceChart device={this.props.device} />
+            <DeviceCharacteristics device={this.props.device} />
           </div>
         </div>
       </div>
