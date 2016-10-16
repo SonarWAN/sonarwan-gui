@@ -69,14 +69,8 @@ class Sidebar extends Component {
 }
 
 const mapStateToProps = (state) => {
-  if (!state.data) {
-    return {
-      devices: [],
-    }
-  }
-
   return {
-    devices: state.data.devices,
+    devices: state.data || [],
   }
 }
 

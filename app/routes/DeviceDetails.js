@@ -42,35 +42,82 @@ class DeviceChart extends React.Component {
   }
 }
 
+
+class Table extends React.Component {
+  render() {
+    return (
+      <div>
+        <h3>{this.props.title}</h3>
+        <table className="table table-striped">
+          <tbody>
+            {this.props.children}
+          </tbody>
+        </table>
+      </div>
+		)
+  }
+}
+
+class TableRow extends React.Component {
+  static propTypes = {
+    data: React.PropTypes.arrayOf(React.PropTypes.any).isRequired
+  }
+
+  render() {
+    return (
+      <tr>
+        {this.props.data.map((val, i) => <td key={i}>{val}</td>)}
+      </tr>
+    )
+  }
+}
+
 class DeviceCharacteristics extends React.Component {
   static propTypes = {
     device: React.PropTypes.object.isRequired
   }
 
   render() {
+    const { characteristics } = this.props.device
+
     return (
-      <div>
-        <h3>Characteristics</h3>
-        <table className="table table-striped">
-          <tbody>
-            {Object.keys(this.props.device).map((key) =>
-              this.renderRow(key, this.props.device[key])
-            )}
-          </tbody>
-        </table>
-      </div>
+      <Table title="Characteristics">
+        {Object.keys(characteristics).filter(key => key !== 'services').map((key) =>
+          <TableRow key={key} data={[key, characteristics[key]]} />
+        )}
+      </Table>
 		)
   }
+}
 
-  renderRow(key, value) {
-    if (key === 'services')
-      return null
+class DeviceServices extends React.Component {
+  static propTypes = {
+    device: React.PropTypes.object.isRequired
+  }
+
+  render() {
+    const { services } = this.props.device
 
     return (
-      <tr key={key}>
-        <td>{key}</td>
-        <td>{value}</td>
-      </tr>
+      <div>
+        <h2>Services</h2>
+        {services.map(service => <ServiceTable service={service} />)}
+      </div>
+    )
+  }
+}
+
+class ServiceTable extends React.Component {
+  render() {
+    const { service } = this.props
+    const { characteristics } = service
+
+    return (
+      <Table title={characteristics.name || 'Unknown service'}>
+        {Object.keys(characteristics).filter(key => key !== 'name').map((key) =>
+          <TableRow key={key} data={[key, characteristics[key]]} />
+        )}
+      </Table>
     )
   }
 }
@@ -101,6 +148,7 @@ class DeviceDetails extends React.Component {
             <h1>{deviceUtils.prettyName(this.props.device)}</h1>
             <DeviceChart device={this.props.device} />
             <DeviceCharacteristics device={this.props.device} />
+            <DeviceServices device={this.props.device} />
           </div>
         </div>
       </div>
@@ -115,7 +163,7 @@ const mapStateToProps = (state, ownProps) => {
 
   const deviceId = ownProps.params.deviceId
   return {
-    device: state.data.devices[deviceId]
+    device: state.data[deviceId]
   }
 }
 

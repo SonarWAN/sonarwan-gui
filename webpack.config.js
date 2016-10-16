@@ -4,6 +4,7 @@ const webpackTargetElectronRenderer = require('webpack-target-electron-renderer'
 
 module.exports = {
   target: 'electron-renderer',
+  devtool: 'cheap-eval-source-map',
   entry: {
     index: './app/app',
   },

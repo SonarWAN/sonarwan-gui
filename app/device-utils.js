@@ -1,13 +1,14 @@
-export function prettyName(device) {
+export function prettyName({ characteristics }) {
   // TODO: extend this
-  return device['model'] || device['os_family'] || 'Unknown device'
+  return characteristics['model'] || characteristics['os_family'] || 'Unknown characteristics'
 }
 
-export function icon(device) {
-  if (device['os_family'] === 'Android') {
+export function icon({ characteristics }) {
+
+  if (characteristics['os_family'] === 'Android') {
     return 'android'
   }
-  if (device['os_family'] === 'iOS' || device['os_family'] === 'Mac OS X') {
+  if (characteristics['os_family'] === 'iOS' || characteristics['os_family'] === 'Mac OS X') {
     return 'apple'
   }
 

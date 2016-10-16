@@ -19,7 +19,7 @@ class Start extends React.Component {
           <Welcome path={this.props.path} onOpenFile={this.handleOpen.bind(this)} />
         </div>
       </div>
-    );
+    )
   }
 }
 

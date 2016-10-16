@@ -1,7 +1,10 @@
 const fs = require('fs')
 const electron = require('electron')
+const ipc = electron.ipcMain
+const dialog = electron.dialog
 
-const __DEBUG__ = true
+const __DEBUG__ = false
+const SONARWAN_EXECUTABLE = '/Users/federicobond/code/itba/sonarwan/run.sh'
 
 // Module to control application life.
 const app = electron.app
@@ -56,23 +59,44 @@ app.on('activate', function () {
 // In this file you can include the rest of your app's specific main process
 // code. You can also put them in separate files and require them here.
 
-const ipc = require('electron').ipcMain
-const dialog = require('electron').dialog
-
 ipc.on('open-file-dialog', function (event) {
 
   const window = BrowserWindow.fromWebContents(event.sender)
   dialog.showOpenDialog(window, {
-    properties: ['openFile']
+    properties: ['openFile', 'multiSelections'],
+    filters: [
+      {name: 'Network Captures', extensions: ['pcap', 'pcapng']}
+    ]
   }, function (files) {
     if (!files) return
 
-    event.sender.send('selected-files', files)
+    event.sender.send('selected-file', files)
 
     // TODO: remove hardcoded sample data
+    var exec = require('child_process').exec;
+
+    var args = files.map(JSON.stringify)
+    args.unshift(SONARWAN_EXECUTABLE)
+    var cmd = args.join(' ')
+
+    console.log(`Executing:  ${cmd}`)
+
+    event.sender.send('analyzing-data')
+
+    exec(cmd, (error, stdout, stderr) => {
+      if (error) {
+        dialog.showErrorBox('Error opening files', error.message)
+        return
+      }
+      // TODO: find out why output is a list
+      event.sender.send('loaded-data', JSON.parse(stdout))
+    });
+
+    /*
     fs.readFile('./data/sample.json', function(err, data) {
       event.sender.send('loaded-data', JSON.parse(data))
     })
+    */
   })
 })
 
