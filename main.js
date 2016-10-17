@@ -72,18 +72,12 @@ ipc.on('open-file-dialog', function (event) {
 
     event.sender.send('selected-file', files)
 
-    // TODO: remove hardcoded sample data
-    var exec = require('child_process').exec;
-
-    var args = files.map(JSON.stringify)
-    args.unshift(SONARWAN_EXECUTABLE)
-    var cmd = args.join(' ')
-
-    console.log(`Executing:  ${cmd}`)
+    var execFile = require('child_process').execFile;
+    var args = files.map(path => path.replace(' ', '\\ '))
 
     event.sender.send('analyzing-data')
 
-    exec(cmd, (error, stdout, stderr) => {
+    execFile(SONARWAN_EXECUTABLE, args, (error, stdout, stderr) => {
       if (error) {
         dialog.showErrorBox('Error opening files', error.message)
         return
