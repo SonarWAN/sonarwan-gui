@@ -1,0 +1,111 @@
+{
+    "authorless_services": [
+        {
+            "activity": {
+                "09/06/16 15:04:47": 843,
+                "09/06/16 15:04:50": 139,
+                "09/06/16 15:04:51": 287,
+                "09/06/16 15:04:53": 699,
+                "09/06/16 15:04:58": 584,
+                "09/06/16 15:04:59": 148,
+                "09/06/16 15:05:00": 1476,
+                "09/06/16 15:05:01": 725,
+                "09/06/16 15:05:02": 565,
+                "09/06/16 15:05:04": 1199
+            },
+            "characteristics": {
+                "name": "telegram"
+            }
+        }
+    ],
+    "devices": [
+        {
+            "activity": {
+                "09/06/16 16:44:52": 156,
+                "09/06/16 16:44:53": 37597,
+                "09/06/16 16:44:59": 13316,
+                "09/06/16 16:45:00": 66
+            },
+            "characteristics": {
+                "brand": "Apple",
+                "cfnetwork_version": "711.0.6",
+                "darwin_version": "14.0.0",
+                "family": "iPad",
+                "model": "iPad",
+                "os_brand": "Apple",
+                "os_build": "12A365",
+                "os_family": "iOS",
+                "os_framework": "GameKit-194.14",
+                "os_version": "8.0",
+                "version": "4,4"
+            },
+            "services": [
+                {
+                    "activity": {
+                        "09/06/16 16:44:52": 156,
+                        "09/06/16 16:44:53": 37597
+                    },
+                    "characteristics": {
+                        "name": "Clash%20of%20Clans",
+                        "version": "8.332.16"
+                    }
+                },
+                {
+                    "activity": {
+                        "09/06/16 16:44:59": 10302
+                    },
+                    "characteristics": {
+                        "name": "gamed",
+                        "version": "4.10.18.4.6.15.5.3.2"
+                    }
+                },
+                {
+                    "activity": {
+                        "09/06/16 16:44:59": 3014,
+                        "09/06/16 16:45:00": 66
+                    },
+                    "characteristics": {
+                        "name": "securityd"
+                    }
+                }
+            ]
+        }
+    ],
+    "services": [
+        {
+            "activity": {
+                "09/06/16 16:44:52": 156,
+                "09/06/16 16:44:53": 37597
+            },
+            "characteristics": {
+                "name": "Clash%20of%20Clans",
+                "version": "8.332.16"
+            }
+        },
+        {
+            "activity": {
+                "09/06/16 16:44:59": 10302
+            },
+            "characteristics": {
+                "name": "gamed",
+                "version": "4.10.18.4.6.15.5.3.2"
+            }
+        },
+        {
+            "activity": {
+                "09/06/16 16:44:59": 3014,
+                "09/06/16 16:45:00": 66
+            },
+            "characteristics": {
+                "name": "securityd"
+            }
+        }
+    ],
+    "summary": {
+        "authorless_services": 1,
+        "devices": 1,
+        "execution_time": 2.4,
+        "files": 2,
+        "packets": 721
+    }
+}
