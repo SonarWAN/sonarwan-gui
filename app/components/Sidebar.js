@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import { hashHistory } from 'react-router'
 import {
   ListView,
   ListViewHeader,
@@ -32,6 +31,9 @@ class Sidebar extends Component {
   render() {
     return (
       <ListView background="#f1f2f4" width="240" height="auto" className="app-sidebar">
+        <ListViewRow  onClick={this.goToSummary.bind(this)}>
+          <Text color="#414141" size="13">Summary</Text>
+        </ListViewRow>
         {/*<ListViewHeader>
           <Text size="11" color="#696969">Order by name</Text>
         </ListViewHeader>*/}
@@ -66,11 +68,15 @@ class Sidebar extends Component {
     this.setState({ selected: deviceId }) // TODO: ugly
     this.context.router.push(`/devices/${deviceId}`)
   }
+
+  goToSummary() {
+    this.context.router.push(`/summary`)
+  }
 }
 
 const mapStateToProps = (state) => {
   return {
-    devices: state.data || [],
+    devices: state.data && state.data.devices || [],
   }
 }
 

@@ -72,15 +72,17 @@ ipc.on('open-file-dialog', function (event) {
 
     event.sender.send('selected-file', files)
 
-    var execFile = require('child_process').execFile
+    var execFile = require('child_process').execFile;
+    var args = files.map(path => path.replace(' ', '\\ '))
 
     event.sender.send('analyzing-data')
 
-    execFile(SONARWAN_EXECUTABLE, files, (error, stdout, stderr) => {
+    execFile(SONARWAN_EXECUTABLE, args, (error, stdout, stderr) => {
       if (error) {
         dialog.showErrorBox('Error opening files', error.message)
         return
       }
+      // TODO: find out why output is a list
       event.sender.send('loaded-data', JSON.parse(stdout))
     });
 
@@ -89,16 +91,6 @@ ipc.on('open-file-dialog', function (event) {
       event.sender.send('loaded-data', JSON.parse(data))
     })
     */
-  })
-})
-
-app.on('load-analysis', function(event, path) {
-  fs.readFile(path, function(err, data) {
-    if (err) {
-      dialog.showErrorBox('Error opening file', error.message)
-      return
-    }
-    event.sender.send('loaded-data', JSON.parse(data))
   })
 })
 

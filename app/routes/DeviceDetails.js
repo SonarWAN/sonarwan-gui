@@ -1,13 +1,8 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import { connect } from 'react-redux'
-import {
-  LineChart,
-  XAxis,
-  YAxis,
-  CartesianGrid,
-  Line,
-} from 'recharts'
+
+const d3 = require('d3')
 
 import Sidebar from '../components/Sidebar'
 import * as deviceUtils from '../device-utils'
@@ -18,27 +13,61 @@ class DeviceChart extends React.Component {
   }
 
   getData() {
-		return [
-			{name: 'Page A', uv: 4000, pv: 2400, amt: 2400},
-			{name: 'Page B', uv: 3000, pv: 1398, amt: 2210},
-			{name: 'Page C', uv: 2000, pv: 9800, amt: 2290},
-			{name: 'Page D', uv: 2780, pv: 3908, amt: 2000},
-			{name: 'Page E', uv: 1890, pv: 4800, amt: 2181},
-			{name: 'Page F', uv: 2390, pv: 3800, amt: 2500},
-			{name: 'Page G', uv: 3490, pv: 4300, amt: 2100},
-		]
+		var data = []
+		for (var i = 0; i < 10; i++) {
+      data.push({
+        timestamp: new Date(),
+        bytes: Math.random() * 300
+      })
+		}
+    console.log(data)
+    return data
   }
 
+	componentDidMount() {
+		var svg = d3.select(this.chart),
+				margin = {top: 20, right: 20, bottom: 30, left: 40},
+				width = +svg.attr("width") - margin.left - margin.right,
+				height = +svg.attr("height") - margin.top - margin.bottom;
+
+		var x = d3.scaleBand().rangeRound([0, width]).padding(0.1),
+				y = d3.scaleLinear().rangeRound([height, 0]);
+
+		var g = svg.append("g")
+				.attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+    var data = this.getData()
+
+    x.domain(data.map(function(d) { return d.timestamp; }));
+    y.domain([0, d3.max(data, function(d) { return d.bytes; })]);
+
+    g.append("g")
+        .attr("class", "axis axis--x")
+        .attr("transform", "translate(0," + height + ")")
+        .call(d3.axisBottom(x));
+
+    g.append("g")
+        .attr("class", "axis axis--y")
+        .call(d3.axisLeft(y).ticks(10, "%"))
+      .append("text")
+        .attr("transform", "rotate(-90)")
+        .attr("y", 6)
+        .attr("dy", "0.71em")
+        .attr("text-anchor", "end")
+        .text("Bytes Transferred");
+
+    g.selectAll(".bar")
+      .data(data)
+      .enter().append("rect")
+        .attr("class", "bar")
+        .attr("x", function(d) { return x(d.timestamp); })
+        .attr("y", function(d) { return y(d.bytes); })
+        .attr("width", x.bandwidth())
+        .attr("height", function(d) { return height - y(d.bytes); });
+	}
+
   render() {
-		return (
-      <LineChart width={700} height={300} data={this.getData()}>
-        <XAxis dataKey="name"/>
-        <YAxis/>
-        <CartesianGrid stroke="#eee" strokeDasharray="5 5"/>
-        <Line type="monotone" dataKey="uv" stroke="#8884d8" />
-        <Line type="monotone" dataKey="pv" stroke="#82ca9d" />
-      </LineChart>
-    )
+    return <svg width="960" height="500" ref={(svg) => this.chart = svg} />
   }
 }
 
@@ -163,7 +192,7 @@ const mapStateToProps = (state, ownProps) => {
 
   const deviceId = ownProps.params.deviceId
   return {
-    device: state.data[deviceId]
+    device: state.data.devices[deviceId],
   }
 }
 

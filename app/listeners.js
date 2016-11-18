@@ -3,6 +3,7 @@ import {
   dataLoaded,
   startLoading,
 }  from './actions'
+import { hashHistory as history } from 'react-router'
 import store from './store'
 
 const { dialog } = require('electron').remote
@@ -22,4 +23,5 @@ ipc.on('analyzing-data', (event) => {
 
 window.onerror = function(errorMsg) {
   dialog.showErrorBox('Unexpected Error', errorMsg)
+  history.push('/')
 }
