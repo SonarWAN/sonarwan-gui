@@ -1,0 +1,195 @@
+{
+    "Report": {
+        "authorless_services": [
+            {
+                "activity": {
+                    "09/06/16 16:44:50": 476,
+                    "09/06/16 16:44:51": 7039,
+                    "09/06/16 16:44:54": 1342,
+                    "09/06/16 16:44:55": 2082
+                },
+                "hosts": [
+                    "service.supercell.net"
+                ],
+                "ips": [
+                    "23.21.184.43"
+                ],
+                "name": "supercell",
+                "type": "Generic"
+            },
+            {
+                "activity": {
+                    "09/06/16 16:44:51": 614,
+                    "09/06/16 16:44:52": 330,
+                    "09/06/16 16:44:54": 1538,
+                    "09/06/16 16:44:55": 462,
+                    "09/06/16 16:44:57": 66,
+                    "09/06/16 16:44:58": 66,
+                    "09/06/16 16:44:59": 66,
+                    "09/06/16 16:45:03": 66,
+                    "09/06/16 16:45:04": 66,
+                    "09/06/16 16:45:08": 66,
+                    "09/06/16 16:45:09": 66
+                },
+                "hosts": [
+                    "game.clashofclans.com"
+                ],
+                "ips": [
+                    "54.90.172.164"
+                ],
+                "name": "clashofclans",
+                "type": "Generic"
+            },
+            {
+                "activity": {
+                    "09/06/16 16:44:54": 8146,
+                    "09/06/16 16:44:55": 6448,
+                    "09/06/16 16:44:59": 8896,
+                    "09/06/16 16:45:00": 8926,
+                    "09/06/16 16:45:01": 16869,
+                    "09/06/16 16:45:02": 15123,
+                    "09/06/16 16:45:03": 11281,
+                    "09/06/16 16:45:06": 3090,
+                    "09/06/16 16:45:07": 54
+                },
+                "hosts": [
+                    "init.gc.apple.com",
+                    "static.gc.apple.com",
+                    "commnat-main.ess.apple.com",
+                    "commnat-cohort.ess.apple.com",
+                    "sp.itunes.apple.com",
+                    "service.gc.apple.com",
+                    "itunes.apple.com"
+                ],
+                "ips": [
+                    "23.197.224.119"
+                ],
+                "name": "Apple",
+                "type": "Entreprise"
+            },
+            {
+                "activity": {
+                    "09/06/16 16:44:58": 478,
+                    "09/06/16 16:44:59": 8143
+                },
+                "hosts": [
+                    "supercell.helpshift.com"
+                ],
+                "ips": [
+                    "50.18.188.192"
+                ],
+                "name": "helpshift",
+                "type": "Generic"
+            },
+            {
+                "activity": {
+                    "09/06/16 16:44:59": 7544
+                },
+                "hosts": [
+                    "graph.facebook.com"
+                ],
+                "ips": [
+                    "31.13.85.8"
+                ],
+                "name": "Facebook",
+                "type": "Social Network"
+            }
+        ],
+        "devices": [
+            {
+                "activity": {
+                    "09/06/16 16:44:52": 156,
+                    "09/06/16 16:44:53": 37597,
+                    "09/06/16 16:44:59": 13316,
+                    "09/06/16 16:45:00": 66
+                },
+                "apps": [
+                    {
+                        "characteristics": {
+                            "name": "Clash%20of%20Clans",
+                            "version": "8.332.16"
+                        },
+                        "services": [
+                            {
+                                "activity": {
+                                    "09/06/16 16:44:52": 156,
+                                    "09/06/16 16:44:53": 37597
+                                },
+                                "hosts": [
+                                    "b46f744d64acd2191eda-3720c0374d47e9a0dd52be4d281c260f.r11.cf2.rackcdn.com"
+                                ],
+                                "ips": [
+                                    "165.254.32.98"
+                                ],
+                                "name": "rackcdn",
+                                "type": "Generic"
+                            }
+                        ]
+                    },
+                    {
+                        "characteristics": {
+                            "name": "gamed",
+                            "version": "4.10.18.4.6.15.5.3.2"
+                        },
+                        "services": [
+                            {
+                                "activity": {
+                                    "09/06/16 16:44:59": 10302
+                                },
+                                "hosts": [
+                                    "init.gc.apple.com"
+                                ],
+                                "ips": [
+                                    "200.42.33.75"
+                                ],
+                                "name": "Apple",
+                                "type": "Entreprise"
+                            }
+                        ]
+                    },
+                    {
+                        "characteristics": {
+                            "name": "securityd"
+                        },
+                        "services": [
+                            {
+                                "activity": {
+                                    "09/06/16 16:44:59": 3014,
+                                    "09/06/16 16:45:00": 66
+                                },
+                                "hosts": [
+                                    "sr.symcd.com"
+                                ],
+                                "ips": [
+                                    "23.4.43.27"
+                                ],
+                                "name": "symcd",
+                                "type": "Generic"
+                            }
+                        ]
+                    }
+                ],
+                "characteristics": {
+                    "brand": "Apple",
+                    "cfnetwork_version": "711.0.6",
+                    "darwin_version": "14.0.0",
+                    "family": "iPad",
+                    "model": "iPad",
+                    "os_brand": "Apple",
+                    "os_build": "12A365",
+                    "os_family": "iOS",
+                    "os_framework": "GameKit-194.14",
+                    "os_version": "8.0",
+                    "version": "4,4"
+                }
+            }
+        ],
+        "summary": {
+            "authorless_services": 5,
+            "devices": 1,
+            "execution_time": 1.75,
+            "files": 1,
+            "packets": 655
+        }
+    }
+}
