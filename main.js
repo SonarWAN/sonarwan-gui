@@ -1,10 +1,16 @@
 const fs = require('fs')
 const electron = require('electron')
+const Config = require('electron-config')
+
 const ipc = electron.ipcMain
 const dialog = electron.dialog
+const config = new Config()
 
 const __DEBUG__ = false
-const SONARWAN_EXECUTABLE = '/Users/federicobond/code/itba/sonarwan/run.sh'
+
+const SONARWAN_EXECUTABLE = 'sonarwan'
+
+config.set('sonarwanExecutable', '/Users/federicobond/code/forks/sonarwan/bin/sonarwan');
 
 // Module to control application life.
 const app = electron.app
@@ -76,12 +82,19 @@ ipc.on('open-file-dialog', function (event) {
 
     event.sender.send('analyzing-data')
 
-    execFile(SONARWAN_EXECUTABLE, files, (error, stdout, stderr) => {
+    const executable = config.get('sonarwanExecutable')
+
+    execFile(executable, files, (error, stdout, stderr) => {
       if (error) {
         dialog.showErrorBox('Error opening files', error.message)
         return
       }
-      event.sender.send('loaded-data', JSON.parse(stdout))
+
+      // TODO: use last line for report
+      var out = stdout.split('\n')
+      out = out[out.length - 2]
+
+      event.sender.send('loaded-data', JSON.parse(out).Report)
     });
 
     /*
