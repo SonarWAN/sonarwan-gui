@@ -119,24 +119,24 @@ class DeviceCharacteristics extends React.Component {
   }
 }
 
-class DeviceServices extends React.Component {
+class DeviceApps extends React.Component {
   static propTypes = {
     device: React.PropTypes.object.isRequired
   }
 
   render() {
-    const { services } = this.props.device
+    const { apps } = this.props.device
 
     return (
       <div>
-        <h2>Services</h2>
-        {services.map(service => <ServiceTable service={service} />)}
+        <h2>Apps</h2>
+        {apps.map(service => <AppTable service={service} />)}
       </div>
     )
   }
 }
 
-class ServiceTable extends React.Component {
+class AppTable extends React.Component {
   render() {
     const { service } = this.props
     const { characteristics } = service
@@ -177,7 +177,7 @@ class DeviceDetails extends React.Component {
             <h1>{deviceUtils.prettyName(this.props.device)}</h1>
             <DeviceChart device={this.props.device} />
             <DeviceCharacteristics device={this.props.device} />
-            <DeviceServices device={this.props.device} />
+            <DeviceApps device={this.props.device} />
           </div>
         </div>
       </div>
