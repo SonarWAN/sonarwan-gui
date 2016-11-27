@@ -30,17 +30,20 @@ class Summary extends React.Component {
   }
 
   static propTypes = {
-    device: React.PropTypes.object
+    summary: React.PropTypes.object
   }
 
   componentDidMount() {
-    if (!this.props.data) {
+    if (!this.props.summary) {
       this.context.router.push('/')
     }
   }
 
   render() {
-    const { summary } = this.props.data
+    const { summary } = this.props
+
+    if (!summary)
+        return null
 
     return (
       <div className="app-body">
@@ -72,7 +75,7 @@ class Summary extends React.Component {
 }
 
 const mapStateToProps = (state) => ({
-  data: state.data
+  summary: state.data && state.data.summary
 })
 
 export default connect(mapStateToProps)(Summary)

@@ -10,6 +10,7 @@ import {
   Text
 } from 'react-desktop/macOs';
 import { connect } from 'react-redux'
+import { Link } from 'react-router'
 
 import * as deviceUtils from '../device-utils'
 
@@ -31,20 +32,19 @@ class Sidebar extends Component {
   render() {
     return (
       <ListView background="#f1f2f4" width="240" height="auto" className="app-sidebar">
-        <ListViewRow  onClick={this.goToSummary.bind(this)}>
-          <Text color="#414141" size="13">Summary</Text>
-        </ListViewRow>
-        {/*<ListViewHeader>
-          <Text size="11" color="#696969">Order by name</Text>
-        </ListViewHeader>*/}
+        <Link to="/summary">
+          <ListViewRow>
+            <Text color="#414141" size="13">Summary</Text>
+          </ListViewRow>
+        </Link>
         <ListViewSection header={this.renderSectionHeader('Devices')}>
           {this.props.devices.map((device, i) => this.renderDeviceItem(device, i))}
-          <ListViewRow
-            onClick={() => this.handleAuthorlessServicesClick()}
-            background={this.state.selected === 'authorless' ? '#d8dadc' : null}>
-            <SidebarIcon name="question-circle-o" />
-            <Text color="#414141" size="13">Authorless Services</Text>
-          </ListViewRow>
+          <Link to="/authorless">
+            <ListViewRow>
+              <SidebarIcon name="question-circle-o" />
+              <Text color="#414141" size="13">Authorless Services</Text>
+            </ListViewRow>
+          </Link>
         </ListViewSection>
         <ListViewSeparator/>
       </ListView>
@@ -61,27 +61,13 @@ class Sidebar extends Component {
 
   renderDeviceItem(device, i) {
     return (
-      <ListViewRow key={i}
-        onClick={() => this.handleDeviceClick(i)}
-        background={this.state.selected === i ? '#d8dadc' : null}>
-        <SidebarIcon name={deviceUtils.icon(device)} />
-        <Text color="#414141" size="13">{deviceUtils.prettyName(device)}</Text>
-      </ListViewRow>
+      <Link to={"/devices/" + i}>
+        <ListViewRow key={i}>
+          <SidebarIcon name={deviceUtils.icon(device)} />
+          <Text color="#414141" size="13">{deviceUtils.prettyName(device)}</Text>
+        </ListViewRow>
+      </Link>
     );
-  }
-
-  handleDeviceClick(deviceId) {
-    this.setState({ selected: deviceId }) // TODO: ugly
-    this.context.router.push(`/devices/${deviceId}`)
-  }
-
-  handleAuthorlessServicesClick() {
-    this.setState({ selected: 'authorless' })
-    this.context.router.push(`/authorless`)
-  }
-
-  goToSummary() {
-    this.context.router.push(`/summary`)
   }
 }
 

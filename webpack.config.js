@@ -33,6 +33,10 @@ module.exports = {
         loader: 'style!css!less'
       },
       {
+        test: /\.css$/,
+        loader: 'style!css'
+      },
+      {
         test: /\.woff(2)?(\?v=[0-9]\.[0-9]\.[0-9])?$/,
         loader: 'url',
         query: { limit: 10000, mimetype: 'application/font-woff' }

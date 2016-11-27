@@ -5,6 +5,7 @@ import { connect } from 'react-redux'
 const d3 = require('d3')
 
 import Sidebar from '../components/Sidebar'
+import Service from '../components/Service'
 import * as deviceUtils from '../device-utils'
 
 class DeviceChart extends React.Component {
@@ -170,15 +171,16 @@ class Authorless extends React.Component {
   render() {
     const { services } = this.props
 
+    if (!services)
+      return null
+
     return (
       <div className="app">
         <div className="app-body">
           <Sidebar />
           <div className="app-content">
             <h1>Authorless Services</h1>
-            <ul>
-              {services.map(service => <li>{service.name}</li>)}
-            </ul>
+            {services.map(service => <Service service={service} />)}
           </div>
         </div>
       </div>

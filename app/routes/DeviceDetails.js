@@ -5,6 +5,7 @@ import { connect } from 'react-redux'
 const d3 = require('d3')
 
 import Sidebar from '../components/Sidebar'
+import Service from '../components/Service'
 import * as deviceUtils from '../device-utils'
 
 class DeviceChart extends React.Component {
@@ -130,19 +131,30 @@ class DeviceApps extends React.Component {
     return (
       <div>
         <h2>Apps</h2>
-        {apps.map(service => <AppTable service={service} />)}
+        {apps.map(app => {
+          return (
+            <div>
+              <AppTable app={app} />
+              {app.services.map(service => <Service service={service} />)}
+            </div>
+          )
+        })}
       </div>
     )
   }
 }
 
 class AppTable extends React.Component {
+  static propTypes = {
+    app: React.PropTypes.object.isRequired
+  }
+
   render() {
-    const { service } = this.props
-    const { characteristics } = service
+    const { app } = this.props
+    const { characteristics } = app
 
     return (
-      <Table title={characteristics.name || 'Unknown service'}>
+      <Table title={characteristics.name || 'Unknown app'}>
         {Object.keys(characteristics).filter(key => key !== 'name').map((key) =>
           <TableRow key={key} data={[key, characteristics[key]]} />
         )}
