@@ -13,6 +13,7 @@
     "electron": "^1.2.0"
   },
   "dependencies": {
+    "@blueprintjs/core": "^1.1.0",
     "babel-core": "^6.17.0",
     "babel-loader": "^6.2.5",
     "babel-plugin-transform-class-properties": "^6.16.0",
@@ -26,7 +27,6 @@
     "font-awesome": "^4.6.3",
     "less": "^2.7.1",
     "less-loader": "^2.2.3",
-    "material-design-lite": "^1.2.1",
     "normalize.css": "^5.0.0",
     "react": "^15.3.2",
     "react-desktop": "^0.2.14",
@@ -40,7 +40,8 @@
     "redux-thunk": "^2.1.0",
     "style-loader": "^0.13.1",
     "url-loader": "^0.5.7",
-    "webpack": "^1.13.2"
+    "webpack": "^1.13.2",
+    "webpack-target-electron-renderer": "^0.4.0"
   },
   "license": "MIT"
 }
