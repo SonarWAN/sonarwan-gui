@@ -8,6 +8,7 @@ import App from './containers/App'
 import Start from './routes/Start'
 import Summary from './routes/Summary'
 import DeviceDetails from './routes/DeviceDetails'
+import Authorless from './routes/Authorless'
 
 require('./listeners')
 
@@ -20,6 +21,7 @@ ReactDOM.render(
         <IndexRoute component={Start} />
         <Route path="summary" component={Summary} />
         <Route path="devices/:deviceId" component={DeviceDetails} />
+        <Route path="authorless" component={Authorless} />
       </Route>
     </Router>
   </Provider>,

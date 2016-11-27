@@ -39,6 +39,12 @@ class Sidebar extends Component {
         </ListViewHeader>*/}
         <ListViewSection header={this.renderSectionHeader('Devices')}>
           {this.props.devices.map((device, i) => this.renderDeviceItem(device, i))}
+          <ListViewRow
+            onClick={() => this.handleAuthorlessServicesClick()}
+            background={this.state.selected === 'authorless' ? '#d8dadc' : null}>
+            <SidebarIcon name="question-circle-o" />
+            <Text color="#414141" size="13">Authorless Services</Text>
+          </ListViewRow>
         </ListViewSection>
         <ListViewSeparator/>
       </ListView>
@@ -67,6 +73,11 @@ class Sidebar extends Component {
   handleDeviceClick(deviceId) {
     this.setState({ selected: deviceId }) // TODO: ugly
     this.context.router.push(`/devices/${deviceId}`)
+  }
+
+  handleAuthorlessServicesClick() {
+    this.setState({ selected: 'authorless' })
+    this.context.router.push(`/authorless`)
   }
 
   goToSummary() {
