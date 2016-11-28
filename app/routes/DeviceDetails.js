@@ -3,7 +3,6 @@ import { connect } from 'react-redux'
 import { Classes, NonIdealState } from '@blueprintjs/core'
 
 import ActivityChart from '../components/ActivityChart'
-import Sidebar from '../components/Sidebar'
 import Service from '../components/Service'
 import * as deviceUtils from '../device-utils'
 

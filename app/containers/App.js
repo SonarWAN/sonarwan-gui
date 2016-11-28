@@ -1,7 +1,9 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import { connect } from 'react-redux'
+
 import Loader from '../components/Loader'
+import Navbar from '../components/Navbar'
 
 class App extends React.Component {
   render() {
@@ -15,6 +17,7 @@ class App extends React.Component {
 
     return (
       <div className="app">
+        <Navbar />
         {this.props.children}
       </div>
     )
