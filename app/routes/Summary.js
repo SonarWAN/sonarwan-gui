@@ -1,11 +1,7 @@
 import React from 'react'
-import ReactDOM from 'react-dom'
 import moment from 'moment'
 import { connect } from 'react-redux'
 import { Classes } from '@blueprintjs/core'
-
-import Sidebar from '../components/Sidebar'
-
 
 class Statcard extends React.Component {
   static propTypes = {
@@ -67,19 +63,19 @@ class Summary extends React.Component {
             <Statcard label="Authorless services" value={summary.authorless_services} />
           </div>
           <div className="col-md-4">
-            <Statcard label="Files processed" value={summary.files} />
+            <Statcard label="Total duration" value={this.getTotalDuration()} />
           </div>
         </div>
 
         <div className="row">
           <div className="col-md-4">
+            <Statcard label="Files processed" value={summary.files} />
+          </div>
+          <div className="col-md-4">
             <Statcard label="Packets analyzed" value={summary.packets} />
           </div>
           <div className="col-md-4">
-            <Statcard label="Total duration" value={this.getTotalDuration()} />
-          </div>
-          <div className="col-md-4">
-            <Statcard label="Execution time" value={summary.execution_time} />
+            <Statcard label="Execution time" value={summary.execution_time + ' seconds'} />
           </div>
         </div>
       </div>
