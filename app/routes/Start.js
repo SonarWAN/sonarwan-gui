@@ -19,6 +19,7 @@ class Start extends React.Component {
     return (
       <div className={`start-page pt-card ${Classes.ELEVATION_1}`}>
         <h1>SonarWAN</h1>
+        <hr />
         <h3 className="pt-text-muted">Getting Started</h3>
 
         <p>Select .pcap files to analize in SonarWAN</p>
