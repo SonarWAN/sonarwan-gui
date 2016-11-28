@@ -1,10 +1,8 @@
 import React from 'react'
-import ReactDOM from 'react-dom'
 import { connect } from 'react-redux'
 
 const d3 = require('d3')
 
-import Sidebar from '../components/Sidebar'
 import Service from '../components/Service'
 import * as deviceUtils from '../device-utils'
 
