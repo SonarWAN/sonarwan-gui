@@ -1,12 +1,30 @@
 import React from 'react'
+import { connect } from 'react-redux'
 
-export default class Service extends React.Component {
+import ActivityChart from './ActivityChart'
+
+class Service extends React.Component {
   static propTypes = {
-    service: React.PropTypes.object.isRequired
+    service: React.PropTypes.object.isRequired,
+    start: React.PropTypes.instanceOf(Date).isRequired,
+    end: React.PropTypes.instanceOf(Date).isRequired
+  }
+
+  renderList(title, items) {
+    if (items.length > 0) {
+      return (
+        <div>
+          <h5>{title}</h5>
+          <ul>
+            {items.map(item => <li key={item}>{item}</li>)}
+          </ul>
+        </div>
+      )
+    }
   }
 
   render() {
-    const { service } = this.props
+    const { service, start, end } = this.props
 
     return (
       <div>
@@ -16,21 +34,23 @@ export default class Service extends React.Component {
           <span className="pt-text-muted">({service.type})</span>
         </h4>
 
-        <h5>Hosts</h5>
-        <ul>
-          {service.hosts.map(host => <li>{host}</li>)}
-        </ul>
+        {this.renderList("Hosts", service.hosts)}
+        {this.renderList("IPs", service.ips)}
 
-        <h5>IPs</h5>
-        <ul>
-          {service.ips.map(ip => <li>{ip}</li>)}
-        </ul>
-
-        <pre>
-          {JSON.stringify(service.activity)}
-        </pre>
+        <ActivityChart
+          activity={service.activity}
+          start={start}
+          end={end}
+        />
         <hr />
       </div>
     )
   }
 }
+
+const mapStateToProps = (state) => ({
+  start: new Date(state.data.summary.start_time),
+  end: new Date(state.data.summary.end_time),
+})
+
+export default connect(mapStateToProps)(Service)
