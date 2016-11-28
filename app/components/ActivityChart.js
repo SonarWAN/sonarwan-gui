@@ -24,7 +24,7 @@ export default class ActivityChart extends React.Component {
   }
 
   componentDidMount() {
-    this.chart.setAttribute('width', this.chart.parentNode.offsetWidth)
+    this.chart.setAttribute('width', this.chart.parentNode.offsetWidth - 40) // padding
     this.update()
   }
 
@@ -83,6 +83,10 @@ export default class ActivityChart extends React.Component {
   }
 
   render() {
-    return <svg width="960" height="200" ref={(canvas) => this.chart = canvas} />
+    return (
+      <div className="pt-card pt-elevation-1 m-b-md">
+        <svg width="960" height="200" ref={(canvas) => this.chart = canvas} />
+      </div>
+    )
   }
 }
