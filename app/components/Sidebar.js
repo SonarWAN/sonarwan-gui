@@ -1,16 +1,7 @@
 import React, { Component } from 'react'
-import {
-  ListView,
-  ListViewHeader,
-  ListViewFooter,
-  ListViewSection,
-  ListViewSectionHeader,
-  ListViewRow,
-  ListViewSeparator,
-  Text
-} from 'react-desktop/macOs';
 import { connect } from 'react-redux'
 import { Link } from 'react-router'
+import { Classes, Menu, MenuItem, MenuDivider } from '@blueprintjs/core';
 
 import * as deviceUtils from '../device-utils'
 
@@ -31,42 +22,31 @@ class Sidebar extends Component {
 
   render() {
     return (
-      <ListView background="#f1f2f4" width="240" height="auto" className="app-sidebar">
-        <Link to="/summary">
-          <ListViewRow>
-            <Text color="#414141" size="13">Summary</Text>
-          </ListViewRow>
-        </Link>
-        <ListViewSection header={this.renderSectionHeader('Devices')}>
+      <div className="app-sidebar">
+        <Menu className={Classes.ELEVATION_1}>
+          <MenuItem
+            iconName="dashboard"
+            onClick={e => this.context.router.push('/summary')}
+            text="Summary" />
+          <MenuDivider title="Devices" />
           {this.props.devices.map((device, i) => this.renderDeviceItem(device, i))}
-          <Link to="/authorless">
-            <ListViewRow>
-              <SidebarIcon name="question-circle-o" />
-              <Text color="#414141" size="13">Authorless Services</Text>
-            </ListViewRow>
-          </Link>
-        </ListViewSection>
-        <ListViewSeparator/>
-      </ListView>
-    );
-  }
-
-  renderSectionHeader(title) {
-    return (
-      <ListViewSectionHeader>
-        {title}
-      </ListViewSectionHeader>
+          <MenuDivider />
+          <MenuItem
+            iconName="error"
+            onClick={e => this.context.router.push('/authorless')}
+            text="Authorless services" />
+        </Menu>
+      </div>
     );
   }
 
   renderDeviceItem(device, i) {
     return (
-      <Link to={"/devices/" + i}>
-        <ListViewRow key={i}>
-          <SidebarIcon name={deviceUtils.icon(device)} />
-          <Text color="#414141" size="13">{deviceUtils.prettyName(device)}</Text>
-        </ListViewRow>
-      </Link>
+      <MenuItem
+        key={i}
+        iconName={deviceUtils.icon(device)}
+        onClick={e => this.context.router.push('/devices/' + i)}
+        text={deviceUtils.prettyName(device)} />
     );
   }
 }

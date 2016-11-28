@@ -1,6 +1,7 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import { connect } from 'react-redux'
+import { Classes } from '@blueprintjs/core'
 
 const d3 = require('d3')
 
@@ -77,8 +78,12 @@ class Table extends React.Component {
   render() {
     return (
       <div>
-        <h3>{this.props.title}</h3>
-        <table className="table table-striped">
+        <h4>{this.props.title}</h4>
+        <table className="pt-table pt-striped pt-condensed pt-elevation-0 m-b-md">
+          <thead>
+            <th>Key</th>
+            <th>Value</th>
+          </thead>
           <tbody>
             {this.props.children}
           </tbody>
@@ -130,7 +135,7 @@ class DeviceApps extends React.Component {
 
     return (
       <div>
-        <h2>Apps</h2>
+        <h2 className="page-header">Apps</h2>
         {apps.map(app => {
           return (
             <div>
@@ -182,16 +187,11 @@ class DeviceDetails extends React.Component {
       return null
 
     return (
-      <div className="app">
-        <div className="app-body">
-          <Sidebar />
-          <div className="app-content">
-            <h1>{deviceUtils.prettyName(this.props.device)}</h1>
-            <DeviceChart device={this.props.device} />
-            <DeviceCharacteristics device={this.props.device} />
-            <DeviceApps device={this.props.device} />
-          </div>
-        </div>
+      <div>
+        <h1 className="page-header">{deviceUtils.prettyName(this.props.device)}</h1>
+        <DeviceChart device={this.props.device} />
+        <DeviceCharacteristics device={this.props.device} />
+        <DeviceApps device={this.props.device} />
       </div>
     );
   }

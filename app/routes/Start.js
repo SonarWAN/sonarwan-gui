@@ -1,7 +1,7 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import { connect } from 'react-redux'
-import { Button, Intent } from '@blueprintjs/core';
+import { Button, Classes, Intent } from '@blueprintjs/core';
 
 import Sidebar from '../components/Sidebar'
 import { openFile } from '../actions'
@@ -17,16 +17,14 @@ class Start extends React.Component {
 
   render() {
     return (
-      <div className="app-content">
-        <div className="start-page">
-          <h1>SonarWAN</h1>
-          <h3 className="pt-text-muted">Getting Started</h3>
+      <div className={`start-page pt-card ${Classes.ELEVATION_1}`}>
+        <h1>SonarWAN</h1>
+        <h3 className="pt-text-muted">Getting Started</h3>
 
-          <p>Select .pcap files to analize in SonarWAN</p>
-          <Button intent={Intent.PRIMARY} onClick={this.handleOpen.bind(this)}>Open files</Button>
-          &nbsp;
-          <Button onClick={this.handleLoad.bind(this)}>Load analysis</Button>
-        </div>
+        <p>Select .pcap files to analize in SonarWAN</p>
+        <Button intent={Intent.PRIMARY} onClick={this.handleOpen.bind(this)}>Open files</Button>
+        &nbsp;
+        <Button onClick={this.handleLoad.bind(this)}>Load analysis</Button>
       </div>
     )
   }

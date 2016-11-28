@@ -13,7 +13,7 @@ export default class Service extends React.Component {
         <h4 className="page-header">
           {service.name}
           &nbsp;
-          <span className="text-muted">({service.type})</span>
+          <span className="pt-text-muted">({service.type})</span>
         </h4>
 
         <h5>Hosts</h5>
@@ -29,6 +29,7 @@ export default class Service extends React.Component {
         <pre>
           {JSON.stringify(service.activity)}
         </pre>
+        <hr />
       </div>
     )
   }

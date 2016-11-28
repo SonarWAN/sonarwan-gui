@@ -175,14 +175,9 @@ class Authorless extends React.Component {
       return null
 
     return (
-      <div className="app">
-        <div className="app-body">
-          <Sidebar />
-          <div className="app-content">
-            <h1>Authorless Services</h1>
-            {services.map(service => <Service service={service} />)}
-          </div>
-        </div>
+      <div>
+        <h1 className="page-header">Authorless Services</h1>
+        {services.map(service => <Service service={service} />)}
       </div>
     );
   }

@@ -1,6 +1,7 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import { connect } from 'react-redux'
+import { Classes } from '@blueprintjs/core'
 
 import Sidebar from '../components/Sidebar'
 
@@ -15,9 +16,9 @@ class Statcard extends React.Component {
     const { label, value } = this.props
 
     return (
-      <div className="statcard">
+      <div className={`pt-card ${Classes.ELEVATION_1} m-b`}>
         <h3>{value}</h3>
-        <p className="lead">{label}</p>
+        <p className="pt-text-muted m-b-0">{label}</p>
       </div>
     )
   }
@@ -46,27 +47,24 @@ class Summary extends React.Component {
         return null
 
     return (
-      <div className="app-body">
-        <Sidebar />
-        <div className="app-content">
-          <h1>Summary</h1>
+      <div>
+        <h1 className="page-header">Summary</h1>
 
-          <div className="row">
-            <div className="col-md-6">
-              <Statcard label="Devices" value={summary.devices} />
-            </div>
-            <div className="col-md-6">
-              <Statcard label="Authorless services" value={summary.authorless_services} />
-            </div>
+        <div className="row">
+          <div className="col-md-6">
+            <Statcard label="Devices" value={summary.devices} />
           </div>
+          <div className="col-md-6">
+            <Statcard label="Authorless services" value={summary.authorless_services} />
+          </div>
+        </div>
 
-          <div className="row">
-            <div className="col-md-6">
-              <Statcard label="Files processed" value={summary.files} />
-            </div>
-            <div className="col-md-6">
-              <Statcard label="Packets processed" value={summary.packets} />
-            </div>
+        <div className="row">
+          <div className="col-md-6">
+            <Statcard label="Files processed" value={summary.files} />
+          </div>
+          <div className="col-md-6">
+            <Statcard label="Packets analyzed" value={summary.packets} />
           </div>
         </div>
       </div>
