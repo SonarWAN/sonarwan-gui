@@ -1,6 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { Classes } from '@blueprintjs/core'
+import { Classes, NonIdealState } from '@blueprintjs/core'
 
 import ActivityChart from '../components/ActivityChart'
 import Sidebar from '../components/Sidebar'
@@ -66,20 +66,34 @@ class DeviceApps extends React.Component {
     device: React.PropTypes.object.isRequired
   }
 
-  render() {
+  renderApps() {
     const { apps } = this.props.device
 
+    if (apps.length > 0) {
+      return apps.map((app, i) => {
+        return (
+          <div key={i}>
+            <AppTable app={app} />
+            {app.services.map((service, j) => <Service key={j} service={service} />)}
+          </div>
+        )
+      })
+    } else {
+			return (
+				<NonIdealState
+					title="No apps found :("
+          description="We couldn't associate any apps with this device."
+          visual="delete"
+        />
+      )
+    }
+  }
+
+  render() {
     return (
       <div>
         <h2 className="page-header">Apps</h2>
-        {apps.map((app, i) => {
-          return (
-            <div key={i}>
-              <AppTable app={app} />
-              {app.services.map((service, j) => <Service key={j} service={service} />)}
-            </div>
-          )
-        })}
+        {this.renderApps()}
       </div>
     )
   }

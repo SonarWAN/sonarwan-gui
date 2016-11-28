@@ -60,28 +60,25 @@ class Summary extends React.Component {
         <h1 className="page-header">Summary</h1>
 
         <div className="row">
-          <div className="col-md-6">
-            <Statcard label="Devices" value={summary.devices} />
+          <div className="col-md-4">
+            <Statcard label="Devices identified" value={summary.devices} />
           </div>
-          <div className="col-md-6">
+          <div className="col-md-4">
             <Statcard label="Authorless services" value={summary.authorless_services} />
           </div>
-        </div>
-
-        <div className="row">
-          <div className="col-md-6">
+          <div className="col-md-4">
             <Statcard label="Files processed" value={summary.files} />
           </div>
-          <div className="col-md-6">
-            <Statcard label="Packets analyzed" value={summary.packets} />
-          </div>
         </div>
 
         <div className="row">
-          <div className="col-md-6">
+          <div className="col-md-4">
+            <Statcard label="Packets analyzed" value={summary.packets} />
+          </div>
+          <div className="col-md-4">
             <Statcard label="Total duration" value={this.getTotalDuration()} />
           </div>
-          <div className="col-md-6">
+          <div className="col-md-4">
             <Statcard label="Execution time" value={summary.execution_time} />
           </div>
         </div>
