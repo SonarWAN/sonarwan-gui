@@ -90,7 +90,7 @@ ipc.on('open-file-dialog', function (event) {
 
     const executable = config.get('sonarwanExecutable')
 
-    execFile(executable, files, (error, stdout, stderr) => {
+    execFile(executable, files, {maxBuffer:20000*1024},(error, stdout, stderr) => {
       if (error) {
         dialog.showErrorBox('Error opening files', error.message)
         return
