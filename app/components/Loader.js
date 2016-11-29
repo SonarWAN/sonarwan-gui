@@ -1,5 +1,6 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
+import { connect } from 'react-redux'
 import { ProgressBar } from '@blueprintjs/core'
 
 class Loader extends React.Component {
@@ -23,12 +24,28 @@ class Loader extends React.Component {
   }
 
   render() {
+    const { progress } = this.props
+
+    let file = progress.file
+    if (file) {
+      file = file.split(/[\\/]/).pop()
+    }
+
     return (
       <div className="loader">
-        <ProgressBar />
+        <div className="pt-card pt-elevation-1">
+          <ProgressBar />
+          <div className="m-t text-center">
+            <small className="pt-text-muted">{file}</small>
+            <br />
+            <small className="pt-text-muted">{progress.packets} packets processed</small>
+          </div>
+        </div>
       </div>
     )
   }
 }
 
-export default Loader
+const mapStateToProps = (state) => ({ progress: state.progress })
+
+export default connect(mapStateToProps)(Loader)

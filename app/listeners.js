@@ -3,6 +3,7 @@ import {
   dataLoaded,
   startLoading,
   settingsLoaded,
+  updateProgress,
 }  from './actions'
 import { hashHistory as history } from 'react-router'
 import store from './store'
@@ -12,6 +13,10 @@ const ipc = require('electron').ipcRenderer
 
 ipc.on('selected-file', (event, path) => {
   store.dispatch(fileOpened(path))
+})
+
+ipc.on('update-progress', (event, data) => {
+  store.dispatch(updateProgress(data))
 })
 
 ipc.on('loaded-data', (event, data) => {

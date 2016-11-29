@@ -1,11 +1,11 @@
 const fs = require('fs')
 const electron = require('electron')
 const Config = require('electron-config')
+const child_process = require('child_process')
 const ipc = electron.ipcMain
 const dialog = electron.dialog
 
 const __DEBUG__ = false
-
 const SONARWAN_EXECUTABLE = 'sonarwan'
 
 const config = new Config({
@@ -87,32 +87,25 @@ ipc.on('open-file-dialog', function (event) {
 
     event.sender.send('selected-file', files)
 
-    var execFile = require('child_process').execFile
-
     event.sender.send('analyzing-data')
 
-    const executable = config.get('sonarwanExecutable')
+    const command = config.get('sonarwanExecutable')
     const programArgs = config.get('programArgs').split(' ').filter(e => e.length > 0)
     const args = files.concat(programArgs)
+    const options = {
+      maxBuffer: 20000 * 1024,
+      stdio: ['ignore', 'ipc', 'ignore']
+    }
 
-    execFile(executable, args, {maxBuffer:20000*1024},(error, stdout, stderr) => {
-      if (error) {
-        dialog.showErrorBox('Error opening files', error.message)
-        return
+    const child = child_process.spawn(command, args, options)
+
+    child.on('message', function(message) {
+      if (message.update) {
+        event.sender.send('update-progress', message.update)
+      } else if (message.report) {
+        event.sender.send('loaded-data', message.report)
       }
-
-      // TODO: use last line for report
-      var out = stdout.split('\n')
-      out = out[out.length - 2]
-
-      event.sender.send('loaded-data', JSON.parse(out).Report)
-    });
-
-    /*
-    fs.readFile('./data/sample.json', function(err, data) {
-      event.sender.send('loaded-data', JSON.parse(data))
     })
-    */
   })
 })
 

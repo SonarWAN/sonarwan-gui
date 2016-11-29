@@ -10,6 +10,8 @@ export const loadAnalysis = createAction('LOAD_ANALYSIS', () => {
   ipc.send('load-analysis', 'path')
 })
 
+export const updateProgress = createAction('UPDATE_PROGRESS')
+
 export const fileOpened = createAction('FILE_OPENED')
 
 export const dataLoaded = createAction('DATA_LOADED', (data) => {
