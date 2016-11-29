@@ -46,7 +46,7 @@ class Sidebar extends Component {
         key={i}
         iconName={deviceUtils.icon(device)}
         onClick={e => this.context.router.push('/devices/' + i)}
-        text={deviceUtils.prettyName(device)} />
+        text={<span>{deviceUtils.prettyName(device)} <span className="pt-text-muted">(#{i})</span></span>} />
     );
   }
 }

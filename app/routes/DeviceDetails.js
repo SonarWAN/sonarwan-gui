@@ -140,7 +140,11 @@ class DeviceDetails extends React.Component {
 
     return (
       <div>
-        <h1 className="page-header">{deviceUtils.prettyName(this.props.device)}</h1>
+        <h1 className="page-header">
+          {deviceUtils.prettyName(this.props.device)}
+          &nbsp;
+          <span className="pt-text-muted">(#{this.props.params.deviceId})</span>
+        </h1>
         <ActivityChart
           activity={this.props.device.activity}
           start={new Date(start_time)}
