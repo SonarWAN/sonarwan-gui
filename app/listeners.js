@@ -4,6 +4,7 @@ import {
   startLoading,
   settingsLoaded,
   updateProgress,
+  loadingError,
 }  from './actions'
 import { hashHistory as history } from 'react-router'
 import store from './store'
@@ -29,6 +30,10 @@ ipc.on('analyzing-data', (event) => {
 
 ipc.on('loaded-settings', (event, settings) => {
   store.dispatch(settingsLoaded(settings))
+})
+
+ipc.on('loading-error', (event, error) => {
+  store.dispatch(loadingError(error))
 })
 
 window.onerror = function(errorMsg) {

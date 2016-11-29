@@ -18,6 +18,9 @@ const reducer = handleActions({
   SETTINGS_LOADED: (state, action) => {
     return Object.assign({}, state, { settings: action.payload })
   },
+  LOADING_ERROR: (state, action) => {
+    return Object.assign({}, state, { loading: false })
+  },
   UPDATE_PROGRESS: (state, action) => {
     return Object.assign({}, state, { progress: action.payload })
   },

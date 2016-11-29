@@ -94,7 +94,7 @@ ipc.on('open-file-dialog', function (event) {
     const args = files.concat(programArgs)
     const options = {
       maxBuffer: 20000 * 1024,
-      stdio: ['ignore', 'ipc', 'ignore']
+      stdio: ['ignore', 'ipc', 'pipe']
     }
 
     const child = child_process.spawn(command, args, options)
@@ -104,7 +104,27 @@ ipc.on('open-file-dialog', function (event) {
         event.sender.send('update-progress', message.update)
       } else if (message.report) {
         event.sender.send('loaded-data', message.report)
+      } else if (message.error) {
+        event.sender.send('loading-error', {
+          message: message.error
+        })
       }
+    })
+
+    child.on('close', function(code) {
+      if (code > 0) {
+        event.sender.send('loading-error', {
+          message: `SonarWAN Core exited with code ${code}.`,
+          detail: child.stderr
+        })
+      }
+    })
+
+    child.on('error', function(err) {
+      event.sender.send('loading-error', {
+        message: 'Failed to start SonarWAN Core. Check the executable path in settings.',
+        cause: err.message
+      })
     })
   })
 })

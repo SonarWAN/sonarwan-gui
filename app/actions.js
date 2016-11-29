@@ -36,6 +36,13 @@ export const dataLoaded = createAction('DATA_LOADED', (data) => {
   return data
 })
 
+export const loadingError = createAction('LOADING_ERROR', (error) => {
+  toast({ intent: Intent.DANGER, message: error.message })
+  history.push('/')
+
+  return error
+})
+
 export const startLoading = createAction('START_LOADING')
 
 export const loadSettings = createAction('LOAD_SETTINGS', () => {
