@@ -22,7 +22,7 @@ class Start extends React.Component {
         <hr />
         <h3 className="pt-text-muted">Getting Started</h3>
 
-        <p>Select .pcap files to analize in SonarWAN</p>
+        <p>Select .pcap or .pcapng files to analize in SonarWAN</p>
         <Button intent={Intent.PRIMARY} className="pt-large" iconName="document-open" onClick={this.handleOpen.bind(this)}>Open files</Button>
         &nbsp;
         <Button className="pt-large" onClick={this.handleLoad.bind(this)}>Load analysis</Button>
