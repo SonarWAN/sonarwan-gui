@@ -1,16 +1,18 @@
 const fs = require('fs')
 const electron = require('electron')
 const Config = require('electron-config')
-
 const ipc = electron.ipcMain
 const dialog = electron.dialog
-const config = new Config()
 
 const __DEBUG__ = false
 
 const SONARWAN_EXECUTABLE = 'sonarwan'
 
-config.set('sonarwanExecutable', '/Users/federicobond/code/forks/sonarwan/bin/sonarwan');
+const config = new Config({
+  defaults: {
+    sonarwanExecutable: '/usr/local/bin/sonarwan'
+  }
+})
 
 // Module to control application life.
 const app = electron.app
@@ -111,7 +113,7 @@ ipc.on('open-file-dialog', function (event) {
   })
 })
 
-app.on('load-analysis', function(event, path) {
+ipc.on('load-analysis', function(event, path) {
   fs.readFile(path, function(err, data) {
     if (err) {
       dialog.showErrorBox('Error opening file', error.message)
@@ -119,6 +121,15 @@ app.on('load-analysis', function(event, path) {
     }
     event.sender.send('loaded-data', JSON.parse(data))
   })
+})
+
+ipc.on('load-settings', function(event) {
+  event.sender.send('loaded-settings', config.store)
+})
+
+ipc.on('save-settings', function(event, settings) {
+  config.store = settings
+  event.sender.send('loaded-settings', config.store)
 })
 
 // autoload some data if debug is on

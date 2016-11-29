@@ -2,6 +2,7 @@ import {
   fileOpened,
   dataLoaded,
   startLoading,
+  settingsLoaded,
 }  from './actions'
 import { hashHistory as history } from 'react-router'
 import store from './store'
@@ -19,6 +20,10 @@ ipc.on('loaded-data', (event, data) => {
 
 ipc.on('analyzing-data', (event) => {
   store.dispatch(startLoading())
+})
+
+ipc.on('loaded-settings', (event, settings) => {
+  store.dispatch(settingsLoaded(settings))
 })
 
 window.onerror = function(errorMsg) {

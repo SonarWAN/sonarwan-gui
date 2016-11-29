@@ -19,3 +19,13 @@ export const dataLoaded = createAction('DATA_LOADED', (data) => {
 })
 
 export const startLoading = createAction('START_LOADING')
+
+export const loadSettings = createAction('LOAD_SETTINGS', () => {
+  ipc.send('load-settings')
+})
+
+export const settingsLoaded = createAction('SETTINGS_LOADED')
+
+export const saveSettings = createAction('SAVE_SETTINGS', (settings) => {
+  ipc.send('save-settings', settings)
+})

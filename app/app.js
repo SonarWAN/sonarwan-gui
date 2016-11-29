@@ -10,6 +10,7 @@ import Start from './routes/Start'
 import Summary from './routes/Summary'
 import DeviceDetails from './routes/DeviceDetails'
 import Authorless from './routes/Authorless'
+import Settings from './routes/Settings'
 
 require('./listeners')
 
@@ -20,6 +21,7 @@ ReactDOM.render(
     <Router history={history}>
       <Route path="/" component={App}>
         <IndexRoute component={Start} />
+        <Route path="settings" component={Settings} />
         <Route component={DataApp}>
           <Route path="summary" component={Summary} />
           <Route path="devices/:deviceId" component={DeviceDetails} />

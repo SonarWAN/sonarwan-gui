@@ -10,7 +10,10 @@ const reducer = handleActions({
   },
   DATA_LOADED: (state, action) => {
     return Object.assign({}, state, { data: action.payload, loading: false })
-  }
+  },
+  SETTINGS_LOADED: (state, action) => {
+    return Object.assign({}, state, { settings: action.payload })
+  },
 }, initial)
 
 export default reducer
