@@ -3,6 +3,20 @@ import moment from 'moment'
 
 const d3 = require('d3')
 
+function bytesToString(bytes) {
+	var fmt = d3.format('.0f');
+	if (bytes < 1024) {
+		return fmt(bytes) + ' B';
+	} else if (bytes < 1024 * 1024) {
+		return fmt(bytes / 1024) + ' kB';
+	} else if (bytes < 1024 * 1024 * 1024) {
+		return fmt(bytes / 1024 / 1024) + ' MB';
+	} else {
+		return fmt(bytes / 1024 / 1024 / 1024) + ' GB';
+	}
+}
+
+
 export default class ActivityChart extends React.Component {
   static propTypes = {
     activity: React.PropTypes.object.isRequired
@@ -65,16 +79,17 @@ export default class ActivityChart extends React.Component {
       .attr("transform", "translate(0," + height + ")")
       .call(d3.axisBottom(x));
 
+
     g.append("g")
       .attr("class", "axis axis--y")
-      .call(d3.axisLeft(y))
+      .call(d3.axisLeft(y).tickFormat(bytesToString))
       .append("text")
       .attr("fill", "#000")
       .attr("transform", "rotate(-90)")
       .attr("y", 6)
       .attr("dy", "0.71em")
       .style("text-anchor", "end")
-      .text("Bytes Transfered");
+      .text("Network I/O");
 
     g.append("path")
       .datum(data)
