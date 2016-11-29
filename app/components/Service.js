@@ -34,14 +34,15 @@ class Service extends React.Component {
           <span className="pt-text-muted">({service.type})</span>
         </h4>
 
-        {this.renderList("Hosts", service.hosts)}
-        {this.renderList("IPs", service.ips)}
-
         <ActivityChart
           activity={service.activity}
           start={start}
           end={end}
         />
+
+        {this.renderList("Hosts", service.hosts)}
+        {this.renderList("IPs", service.ips)}
+
         <hr />
       </div>
     )
