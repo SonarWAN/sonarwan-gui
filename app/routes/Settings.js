@@ -13,13 +13,18 @@ class Settings extends React.Component {
     super(props)
     this.state = {
       settings: {
-        sonarwanExecutable: ""
+        sonarwanExecutable: '',
+        programArgs: '',
       }
     }
   }
 
   componentDidMount() {
     this.props.dispatch(loadSettings())
+  }
+
+  componentWillReceiveProps(nextProps) {
+    this.setState({ settings: nextProps.settings })
   }
 
   handleSave() {
@@ -31,7 +36,11 @@ class Settings extends React.Component {
   }
 
   setConfig(key, value) {
-    const settings = Object.assign({}, this.state.settings, { [key]: value })
+    const settings = Object.assign(
+      {},
+      this.state.settings,
+      { [key]: value }
+    )
     this.setState({ settings })
   }
 
@@ -53,6 +62,18 @@ class Settings extends React.Component {
               dir="auto"
               value={this.getConfig('sonarwanExecutable')}
               onChange={e => this.setConfig('sonarwanExecutable', e.target.value)}
+            />
+          </label>
+          <label className="pt-label .modifier">
+            Program Arguments
+            <input
+              className="pt-input"
+              style={{ width: 300 }}
+              type="text"
+              placeholder=""
+              dir="auto"
+              value={this.getConfig('programArgs')}
+              onChange={e => this.setConfig('programArgs', e.target.value)}
             />
           </label>
           <hr />

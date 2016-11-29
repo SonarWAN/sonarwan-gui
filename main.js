@@ -10,7 +10,8 @@ const SONARWAN_EXECUTABLE = 'sonarwan'
 
 const config = new Config({
   defaults: {
-    sonarwanExecutable: '/usr/local/bin/sonarwan'
+    sonarwanExecutable: '/usr/local/bin/sonarwan',
+    programArgs: '',
   }
 })
 
@@ -91,8 +92,10 @@ ipc.on('open-file-dialog', function (event) {
     event.sender.send('analyzing-data')
 
     const executable = config.get('sonarwanExecutable')
+    const programArgs = config.get('programArgs').split(' ').filter(e => e.length > 0)
+    const args = files.concat(programArgs)
 
-    execFile(executable, files, {maxBuffer:20000*1024},(error, stdout, stderr) => {
+    execFile(executable, args, {maxBuffer:20000*1024},(error, stdout, stderr) => {
       if (error) {
         dialog.showErrorBox('Error opening files', error.message)
         return
