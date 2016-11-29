@@ -32,7 +32,7 @@ class Settings extends React.Component {
   }
 
   getConfig(key) {
-    return this.state.settings[key] || this.props.settings[key]
+    return this.state.settings[key]
   }
 
   setConfig(key, value) {
