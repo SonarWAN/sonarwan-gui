@@ -1,5 +1,6 @@
 import React from 'react'
 import moment from 'moment'
+import sortBy from 'lodash/sortBy'
 
 const d3 = require('d3')
 
@@ -19,20 +20,61 @@ function bytesToString(bytes) {
 
 export default class ActivityChart extends React.Component {
   static propTypes = {
-    activity: React.PropTypes.object.isRequired
+    activity: React.PropTypes.object.isRequired,
+    start: React.PropTypes.instanceOf(Date),
+    end: React.PropTypes.instanceOf(Date),
+  }
+
+  getTimeStep() {
+    const second = 1000
+
+    if (end - start > 3 * hour) {
+      return 60 * second
+    }
+
+    return second
+  }
+
+  getActivity() {
+    const { start, end } = this.props
+    let ret = []
+
+    for (let key of Object.keys(this.props.activity)) {
+      ret.push({ date: new Date(key), value: this.props.activity[key] })
+    }
+
+    ret = sortBy(ret, d => d.date);
+
+    if (start < ret[0].date)
+      ret.unshift({ date: start, value: 0 })
+    if (end > ret[ret.length - 1].date)
+      ret.push({ date: end, value: 0 })
+
+    return ret
   }
 
   getData() {
-    const { activity, start, end } = this.props
+    const { start, end } = this.props
+
+    const activity = this.getActivity()
     const data = []
 
-    for (var d = start; d <= end; d = new Date(d.valueOf() + 1000)) {
+    for (let i = 0; i < activity.length - 1; i++) {
+      var d1 = activity[i].date
+      var d2 = activity[i + 1].date
 
-      var date = moment(d).milliseconds(0).toISOString().replace('.000Z', '')
-      var value = activity[date] || 0
+      data.push(activity[i])
 
-      data.push({ date: new Date(date), value })
+      let diff = d2 - d1
+      if (diff == 2 * 1000) {
+        data.push({ date: new Date(d1.valueOf() + 1000), value: 0 })
+      } else if (diff > 2 * 1000) {
+        data.push({ date: new Date(d1.valueOf() + 1000), value: 0 })
+        data.push({ date: new Date(d2.valueOf() - 1000), value: 0 })
+      }
     }
+
+    data.push(activity[activity.length - 1])
 
     return data
   }
