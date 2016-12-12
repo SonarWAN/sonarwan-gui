@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 import { Button, Classes, Intent } from '@blueprintjs/core';
 
 import Sidebar from '../components/Sidebar'
-import { openFile } from '../actions'
+import { openFile, loadAnalysis } from '../actions'
 
 class Start extends React.Component {
   handleOpen() {
@@ -12,7 +12,7 @@ class Start extends React.Component {
   }
 
   handleLoad() {
-    console.log('load functionality not supported')
+    this.props.dispatch(loadAnalysis())
   }
 
   render() {

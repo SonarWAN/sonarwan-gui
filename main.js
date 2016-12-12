@@ -130,12 +130,35 @@ ipc.on('open-file-dialog', function (event) {
 })
 
 ipc.on('load-analysis', function(event, path) {
-  fs.readFile(path, function(err, data) {
-    if (err) {
-      dialog.showErrorBox('Error opening file', error.message)
-      return
-    }
-    event.sender.send('loaded-data', JSON.parse(data))
+  const window = BrowserWindow.fromWebContents(event.sender)
+  dialog.showOpenDialog(window, {
+    properties: ['openFile'],
+    filters: [
+      {name: 'JSON files', extensions: ['json']}
+    ]
+  }, function (files, err) {
+    if (!files) return
+
+    fs.readFile(files[0], function(err, data) {
+      if (err) {
+        dialog.showErrorBox('Error opening file', err.message)
+        return
+      }
+
+      try {
+        data = JSON.parse(data)
+      } catch (err) {
+        dialog.showErrorBox('Error opening file', err.message)
+        return
+      }
+
+      if (!data.report) {
+        dialog.showErrorBox('Error opening file', 'File is not a valid SonarWAN report')
+        return
+      }
+
+      event.sender.send('loaded-data', data.report)
+    })
   })
 })
 
