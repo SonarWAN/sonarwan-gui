@@ -1,6 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { Classes, NonIdealState } from '@blueprintjs/core'
+import isEmpty from 'lodash/isEmpty'
 
 import ActivityChart from '../components/ActivityChart'
 import Service from '../components/Service'
@@ -103,13 +104,27 @@ class AppTable extends React.Component {
     app: React.PropTypes.object.isRequired
   }
 
+  getKeys() {
+    return Object.keys(this.props.app.characteristics).filter(key => key !== 'name')
+  }
+
+  getTitle() {
+    const { characteristics } = this.props.app
+    return characteristics.name || 'Unknown app'
+  }
+
   render() {
     const { app } = this.props
     const { characteristics } = app
+    const keys = this.getKeys()
+
+    if (isEmpty(keys)) {
+      return <h4>{this.getTitle()}</h4>
+    }
 
     return (
-      <Table title={characteristics.name || 'Unknown app'}>
-        {Object.keys(characteristics).filter(key => key !== 'name').map((key) =>
+      <Table title={this.getTitle()}>
+        {this.getKeys().map((key) =>
           <TableRow key={key} data={[key, characteristics[key]]} />
         )}
       </Table>
