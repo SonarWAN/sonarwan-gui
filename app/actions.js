@@ -54,3 +54,7 @@ export const saveSettings = createAction('SAVE_SETTINGS', (settings) => {
   ipc.send('save-settings', settings)
   toast({ intent: Intent.SUCCESS, message: 'Settings saved.' });
 })
+
+export const saveAnalysis = createAction('SAVE_ANALYSIS', (data) => {
+  ipc.send('save-analysis', data)
+})

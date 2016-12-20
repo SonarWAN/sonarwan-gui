@@ -171,6 +171,28 @@ ipc.on('save-settings', function(event, settings) {
   event.sender.send('loaded-settings', config.store)
 })
 
+ipc.on('save-analysis', function(event, data) {
+  const window = BrowserWindow.fromWebContents(event.sender)
+  dialog.showSaveDialog(window, {
+    filters: [
+      {name: 'SonarWAN Analysis (.json)', extensions: ['json']}
+    ]
+  }, function(filename) {
+
+    if (!filename) return
+
+    var payload = JSON.stringify({'report': data})
+    fs.writeFile(filename, payload, (err) => {
+      if (err) {
+        dialog.showErrorBox('Error saving file', err.message)
+        return
+      }
+
+      event.sender.send('saved-analysis')
+    })
+  })
+})
+
 // autoload some data if debug is on
 if (__DEBUG__) {
   setTimeout(function() {
