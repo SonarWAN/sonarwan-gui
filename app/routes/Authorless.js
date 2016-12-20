@@ -1,5 +1,8 @@
 import React from 'react'
 import { connect } from 'react-redux'
+import uniq from 'lodash/uniq'
+import groupBy from 'lodash/groupBy'
+import { Tabs, TabList, Tab, TabPanel } from '@blueprintjs/core'
 
 const d3 = require('d3')
 
@@ -22,6 +25,28 @@ class Authorless extends React.Component {
       this.context.router.push('/')
   }
 
+	getCategories() {
+    return uniq(this.props.services.map(s => s.type))
+  }
+
+  renderCategoryTabs() {
+    return this.getCategories().map(category => <Tab key={category}>{category}</Tab>)
+  }
+
+  renderTabPanels() {
+    const servicesByType = groupBy(this.props.services, s => s.type)
+
+    return this.getCategories().map(category => {
+      return (
+        <TabPanel key={category}>
+          {servicesByType[category].map((service, i) => {
+            return <Service key={i} service={service} />
+          })}
+        </TabPanel>
+      )
+    })
+  }
+
   render() {
     const { services } = this.props
 
@@ -31,7 +56,12 @@ class Authorless extends React.Component {
     return (
       <div>
         <h1 className="page-header">Authorless Services</h1>
-        {services.map((service, i) => <Service key={i} service={service} />)}
+				<Tabs>
+					<TabList>
+            {this.renderCategoryTabs()}
+					</TabList>
+          {this.renderTabPanels()}
+				</Tabs>
       </div>
     );
   }
