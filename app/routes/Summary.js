@@ -55,6 +55,7 @@ class Summary extends React.Component {
       <div>
         <h1 className="page-header">Summary</h1>
 
+        <h4>Analysis</h4>
         <div className="row">
           <div className="col-md-4 col-sm-6">
             <Statcard label="Devices identified" value={summary.devices} />
@@ -65,6 +66,12 @@ class Summary extends React.Component {
           <div className="col-md-4 col-sm-6">
             <Statcard label="Total duration" value={this.getTotalDuration()} />
           </div>
+        </div>
+
+        <hr />
+
+        <h4>Execution</h4>
+        <div className="row">
           <div className="col-md-4 col-sm-6">
             <Statcard label="Files processed" value={summary.files} />
           </div>
